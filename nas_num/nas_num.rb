@@ -151,8 +151,63 @@ def help_sum(arr)
 end
 
 
+def is_prime?(num)
+    return false if num < 2
+    (2...num).each do |i|
+        return false if num % i == 0
+    end
+    true
+end
 
 
+def mersenne_prime(nth)
+    count = 0
+    x = -1
+    while count < nth
+        x += 1
+        if is_prime?(2**x - 1)
+            count += 1
+        end
+    end
+    return 2**x - 1
+end
+
+
+def tri_seq (n)
+    seq = []
+    i = 1
+    while i <= n
+        seq << (i*(i+1))/2
+        i += 1
+    end
+    return seq
+end
+
+def triangular_word?(word)
+    alpha = ("a".."z").to_a
+    total_value = word.split("").map {|char| alpha.index(char) + 1}.sum
+    tri_seq(total_value).include?(total_value)
+end
+
+
+
+
+
+
+def collapse(arr)
+    (0...arr.length - 1).each do |i|
+        if arr[i] + 1 == arr[i + 1] || arr[i] == arr[i + 1] + 1
+            return arr[0...i] + arr[i + 2..-1]
+        end
+    end
+    return arr
+end
+
+
+def consecutive_collapse(arr)
+    arr.each {arr = collapse(arr)}
+    return arr
+end
 
 
 
